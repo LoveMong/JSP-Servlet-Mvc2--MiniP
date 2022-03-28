@@ -7,7 +7,7 @@
 
 	<div id="wrap" align="center">
 		<h2>상품 등록 - 관리자 페이지</h2>
-		<form method="post" enctype="multipart/form-data" name="frm">
+		<form action="/product/register.do" method="post" enctype="multipart/form-data" name="frm">
 			<table>
 				<tr>
 					<th>상 품 명</th>

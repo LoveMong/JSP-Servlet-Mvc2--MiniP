@@ -42,7 +42,7 @@ public class ProductRegisterHandler implements CommandHandler {
 		String name = multi.getParameter("name");
 		int price = Integer.parseInt(multi.getParameter("price"));
 		String description = multi.getParameter("description");
-		String pictureUrl = multi.getParameter("pictureUrl");
+		String pictureUrl = multi.getFilesystemName("pictureUrl");
 		System.out.println("사진url : " + pictureUrl);
 		System.out.println("path : " + path);
 		
