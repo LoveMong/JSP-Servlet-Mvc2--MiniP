@@ -10,13 +10,13 @@ import com.minip.mvc2.dto.ProductVO;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-public class ProductRegisterHandler implements CommandHandler {
+public class ProductUpdateHandler implements CommandHandler {
 	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		if(request.getMethod().equalsIgnoreCase("GET")) {
-			return "/view/product/productRegister.jsp";
+			return submitForm(request, response);
 		}
 		else if (request.getMethod().equalsIgnoreCase("POST")) {
 			return processSubmit(request, response);
@@ -29,6 +29,22 @@ public class ProductRegisterHandler implements CommandHandler {
 		
 	}
 	
+	
+	private String submitForm(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		String url = "/view/product/productUpdate.jsp";
+		Integer code = Integer.valueOf(request.getParameter("code"));
+		
+		ProductDAO pDao = ProductDAO.getInstance();
+		ProductVO pVo = pDao.selectProductByCode(code);
+		request.setAttribute("product", pVo);
+		
+		return url;
+	}
+	
+	
+	
+	
 	private String processSubmit(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		// ServletContext : 웹 애플리케이션 내에 있는 모든 서블릿 그리고 JSP 간에 정보를 공유 및 서블릿 컨테이너에 대한 정보를 추출할 수 있게 하는 기술
@@ -39,26 +55,31 @@ public class ProductRegisterHandler implements CommandHandler {
 		String encType = "UTF-8";
 		int sizeLimit = 20 * 1024 * 1024;
 		MultipartRequest multi = new MultipartRequest(request, path, sizeLimit, encType, new DefaultFileRenamePolicy());
+		
+		String code = multi.getParameter("code");
 		String name = multi.getParameter("name");
 		int price = Integer.parseInt(multi.getParameter("price"));
 		String description = multi.getParameter("description");
 		String pictureUrl = multi.getParameter("pictureUrl");
-		System.out.println("사진url : " + pictureUrl);
-		System.out.println("path : " + path);
 		
+		if (pictureUrl == null) {
+			pictureUrl = multi.getParameter("img");
+		}
 		
 		ProductVO pVo = new ProductVO();
+		pVo.setCode(Integer.parseInt(code));
 		pVo.setName(name);
 		pVo.setPrice(price);
 		pVo.setDescription(description);
 		pVo.setPictureUrl(pictureUrl);
 		
 		ProductDAO pDao = ProductDAO.getInstance();
-		pDao.insertProduct(pVo);
-		
-		response.sendRedirect("list.do");		
+		pDao.updateProduct(pVo);
+		response.sendRedirect("/product/list.do");
 		
 		return null;
+		
+		
 		
 	}
 	

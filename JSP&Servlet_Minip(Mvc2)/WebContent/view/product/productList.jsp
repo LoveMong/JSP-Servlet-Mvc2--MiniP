@@ -28,7 +28,7 @@ table td {
 					<td>${product.code}</td>				
 					<td>${product.name}</td>				
 					<td><fmt:formatNumber value="${product.price}" pattern="#,###"/>
-					<td><a href="productUpdate.do?code=${product.code}">상품 수정</a></td>				
+					<td><a href="/product/update.do?code=${product.code}">상품 수정</a></td>				
 					<td><a href="productDelete.do?code=${product.code}">상품 삭제</a></td>				
 				</tr>			
 			</c:forEach>		
