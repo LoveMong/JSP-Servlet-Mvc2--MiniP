@@ -10,6 +10,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/product.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/js/board.js"></script>
     <title>JSP&Servlet MiniProject</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">

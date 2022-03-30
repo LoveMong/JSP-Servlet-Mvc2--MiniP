@@ -29,13 +29,8 @@ public class ProductDAO {
 		int startNum = (page-1)*10;
 		int endNum = 10;
 		String sql = "SELECT * FROM(SELECT *, @ROWNUM:=@ROWNUM+1 as row_num FROM product, (SELECT @ROWNUM:=0) as r)t LIMIT ?, ?";
-		
-//		"SELECT *"
-//		 + "FROM("  
-//		 +	   "SELECT *, @ROWNUM:=@ROWNUM+1 as row_num"
-//		 +     "FROM product, (SELECT @ROWNUM:=0) as r)"
-//		 + "t LIMIT ?, ?";
 		List<ProductVO> list = new ArrayList<ProductVO>();
+		
 		try (Connection conn = DBManager.getConnection(); 
 			 PreparedStatement pstmt = conn.prepareStatement(sql); ){
 			 pstmt.setInt(1, startNum);
