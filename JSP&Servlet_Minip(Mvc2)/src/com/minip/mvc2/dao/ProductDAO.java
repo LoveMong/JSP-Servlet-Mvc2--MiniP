@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections4.map.PassiveExpiringMap;
+
 import com.minip.mvc2.dto.ProductVO;
 import com.minip.mvc2.util.DBManager;
 
@@ -22,12 +24,22 @@ public class ProductDAO {
 	}
 	
 	
-	public List<ProductVO> selectAllProducts() {
+	public List<ProductVO> selectAllProducts(int page) {
 		
-		String sql = "select * from product order by code desc";
+		int startNum = (page-1)*10;
+		int endNum = 10;
+		String sql = "SELECT * FROM(SELECT *, @ROWNUM:=@ROWNUM+1 as row_num FROM product, (SELECT @ROWNUM:=0) as r)t LIMIT ?, ?";
+		
+//		"SELECT *"
+//		 + "FROM("  
+//		 +	   "SELECT *, @ROWNUM:=@ROWNUM+1 as row_num"
+//		 +     "FROM product, (SELECT @ROWNUM:=0) as r)"
+//		 + "t LIMIT ?, ?";
 		List<ProductVO> list = new ArrayList<ProductVO>();
 		try (Connection conn = DBManager.getConnection(); 
 			 PreparedStatement pstmt = conn.prepareStatement(sql); ){
+			 pstmt.setInt(1, startNum);
+			 pstmt.setInt(2, endNum);
 			 ResultSet rs = pstmt.executeQuery();
 			 while (rs.next()) {
 				 ProductVO pVo = new ProductVO();
@@ -102,5 +114,43 @@ public class ProductDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public void deleteProduct(Integer code) {
+		
+		String sql = "delete from product where code = ?";
+			
+		try (Connection conn = DBManager.getConnection(); 
+			 PreparedStatement pstmt = conn.prepareStatement(sql); ){
+			 pstmt.setInt(1, code);
+			 pstmt.executeUpdate();
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public int sqlRow() {
+		
+		String sql = "select count(*) as count from product";
+		ResultSet rs = null;
+		int result = 0;
+					
+		try (Connection conn = DBManager.getConnection(); 
+			 PreparedStatement pstmt = conn.prepareStatement(sql);){
+			 rs = pstmt.executeQuery();
+			 if (rs.next()) {
+				 
+				result = rs.getInt("count");
+				
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(rs);
+		}
+		
+		return result;
+		
+	}
 }

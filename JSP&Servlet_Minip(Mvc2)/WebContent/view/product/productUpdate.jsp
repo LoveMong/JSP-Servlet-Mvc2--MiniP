@@ -10,6 +10,7 @@ table td {
 table th {
  text-align: center;
 }
+
 </style>
 <body>
 	<jsp:include page="/view/common/header.jsp"></jsp:include>
@@ -20,7 +21,7 @@ table th {
 		<input type="hidden" name="code" value="${product.code}">
 		<input type="hidden" name="img" value="${product.pictureUrl}">
 		<table class="list" style="margin-top: 60px">
-			<tr><td><c:choose>
+			<tr><td style="text-align: center"><c:choose>
 						<c:when test="${empty product.pictureUrl}">
 							<img src="/upload/noimage.jpeg">
 						</c:when>
