@@ -5,11 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.minip.mvc2.command.CommandHandler;
 import com.minip.mvc2.dao.BoardDAO;
-import com.minip.mvc2.dao.ProductDAO;
 import com.minip.mvc2.dto.BoardVO;
 import com.minip.mvc2.dto.Paging;
-import com.minip.mvc2.dto.ProductVO;
-import com.sun.org.apache.bcel.internal.generic.NEW;
+
 
 public class BoardListHandler implements CommandHandler {
 	

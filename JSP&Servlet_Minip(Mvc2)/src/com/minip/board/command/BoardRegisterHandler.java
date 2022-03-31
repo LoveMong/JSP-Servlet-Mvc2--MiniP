@@ -1,16 +1,12 @@
 package com.minip.board.command;
 
 import java.io.IOException;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.minip.mvc2.command.CommandHandler;
 import com.minip.mvc2.dao.BoardDAO;
-import com.minip.mvc2.dao.ProductDAO;
 import com.minip.mvc2.dto.BoardVO;
-import com.minip.mvc2.dto.ProductVO;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 
 public class BoardRegisterHandler implements CommandHandler {
 	

@@ -1,68 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
-
-    <title>JSP&Servlet MiniProject</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
-
-    <!-- Bootstrap core CSS -->
-    <link href="<%=request.getContextPath()%>/bootstrap/css/bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <!-- <link href="jumbotron.css" rel="stylesheet"> -->
-  </head>
 
   <body>
+	
+	<jsp:include page="/view/common/header.jsp"></jsp:include>
 
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="hello.do">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/member/edit.do?userid=${loginUser.userid}">Edit Profile</a>
-          </li>
-          <li class="nav-item">
-          	<a class="nav-link" href="/member/logOut.do">Logout</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </div>
-    </nav>
-
-    <main role="main">
-
-      <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
         <div class="container">
-          <h1 class="display-3">안녕하세요, ${loginUser.name}(${loginUser.userid})님!</h1>
-          <p>안녕하세요. 이번에는 MiniProject로 MVC 2Model기반 JSP&Servlet을 이용한 회원관리, 상품관리, 게시판을 만들었습니다. 감사합니다. </p>
+          <c:choose>
+          	<c:when test="${loginUser == null }">
+          		<h2 class="display-3">안녕하세요, 방문자님!</h2>
+          	</c:when>
+          	<c:when test="${loginUser != null }">
+          		<h2 class="display-3">안녕하세요, ${loginUser.name}(${loginUser.userid})님!</h2>
+          	</c:when>          
+          </c:choose>
+          <p style="margin: 30px">안녕하세요. 이번에는 MiniProject로 MVC 2Model기반 JSP&Servlet을 이용한 회원관리, 상품관리, 게시판을 만들었습니다. 감사합니다. </p>
           <p><a class="btn btn-primary btn-lg" href="https://github.com/LoveMong" role="button">More Project &raquo;</a></p>
         </div>
       </div>
@@ -71,38 +25,40 @@
         <!-- Example row of columns -->
         <div class="row">
           <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+            <h2 >회 원 관 리</h2>
+            <p>&#183; 로그인, 로그아웃, 회원가입, 회원정보수정 기능 구현<br>
+               &#183; 로그인, 회원가입, 정보수정 JS사용 유효성 검사 적용<br>
+               &#183; 회원가입 시 비밀번호 암호화 구현(BCrypt 사용) <br>
+               &#183; Filter 사용 사용자 인증<br>
+               &#183; Bootstrap Example Template CSS 적용 
+            </p>            
           </div>
           <div class="col-md-4">
             <h2>상 품 관 리</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p>&#183; 상품 등록, 수정, 삭제 기능 구현<br>
+               &#183; 등록, 수정, 삭제 JS사용 유효성 검사 적용<br>
+               &#183; Mutipart사용 파일 업로드 구현 <br>
+               &#183; 상품 리스트 정보 Paging 처리 <br>
+               &#183; Bootstrap Example Template CSS 적용 
+            </p>            
             <p><a class="btn btn-secondary" href="/product/list.do" role="button">View details &raquo;</a></p>
           </div>
           <div class="col-md-4">
             <h2>게 시 판</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            <p>&#183; 게시판 등록, 수정, 삭제 기능 구현<br>
+               &#183; 등록, 수정, 삭제 JS사용 유효성 검사 적용<br>
+               &#183; 게시글 리스트 Paging 처리 <br>
+               &#183; Bootstrap Example Template CSS 적용 
+            </p>            
             <p><a class="btn btn-secondary" href="/board/list.do" role="button">View details &raquo;</a></p>
           </div>
         </div>
 
         <hr>
 
-      </div> <!-- /container -->
+      </div>
+      
+      <jsp:include page="/view/common/footer.jsp"></jsp:include>
 
-    </main>
-
-    <footer class="container">
-      <p>&copy; MiniProject 2022-03</p>
-    </footer>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <!-- <script src="../../assets/js/vendor/popper.min.js"></script> -->
-    <script src="<%=request.getContextPath()%>/bootstrap/js/bootstrap.js"></script>
   </body>
 </html>

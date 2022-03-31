@@ -3,12 +3,11 @@ package com.minip.member.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import com.minip.mvc2.command.CommandHandler;
 import com.minip.mvc2.dao.MemberDAO;
 import com.minip.mvc2.dto.MemberVO;
 
-import sun.awt.RepaintArea;
+
 
 
 public class EditMemberHandler implements CommandHandler {

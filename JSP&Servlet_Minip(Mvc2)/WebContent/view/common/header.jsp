@@ -12,15 +12,9 @@
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/product.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/board.js"></script>
     <title>JSP&Servlet MiniProject</title>
-
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
-
-    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/shopping.css?after">
     <link href="<%=request.getContextPath()%>/bootstrap/css/bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <!-- <link href="jumbotron.css" rel="stylesheet"> -->
   </head>
 
   <body>
@@ -39,23 +33,43 @@
           <li class="nav-item">
             <a class="nav-link" href="/member/edit.do?userid=${loginUser.userid}">Edit Profile</a>
           </li>
-          <li class="nav-item">
-          	<a class="nav-link" href="/member/logOut.do">Logout</a>
-          </li>
+          <c:choose>
+          	<c:when test="${loginUser.userid == null }">          
+          		<li class="nav-item">
+          			<a class="nav-link" href="/member/login.do">Login</a>
+          		</li>
+          	</c:when>
+          	<c:when test="${loginUser.userid != null }">          
+          		<li class="nav-item">
+          			<a class="nav-link" href="/member/logOut.do">Logout</a>
+          		</li>
+          	</c:when>
+          
+          </c:choose>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="">MEMBER</a>
+              <a class="dropdown-item" href="/product/list.do">PRODUCT</a>
+              <a class="dropdown-item" href="/board/list.do">BOARD</a>
             </div>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <ul class="navbar-nav mr-auto" style="margin-left: 600px;">
+          <c:choose>
+          	<c:when test="${loginUser.userid == null }">
+          		<li class="nav-item" style="text-align: left;">
+          			안녕하세요, 방문자님
+          		</li>          	
+          	</c:when>
+          	<c:when test="${loginUser.userid != null }">
+          		<li class="nav-item" style="text-align: left;">
+          			안녕하세요, ${loginUser.name}(${loginUser.userid})님
+          		</li>          	
+          	</c:when>
+          </c:choose>
+         </ul>
       </div>
     </nav>
 
-    <main role="main" style="margin-top: 100px; margin-bottom: 200px">
+    <main role="main" style="margin-top: 100px; margin-bottom: 120px">
