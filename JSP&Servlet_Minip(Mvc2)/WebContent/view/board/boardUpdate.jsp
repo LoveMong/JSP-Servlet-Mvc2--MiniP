@@ -11,7 +11,8 @@ text-align: center;
 
 	<div id="wrap" align="center">
 		<h2 style="margin-bottom: 50px">게시글 등록</h2>
-		<form action="/board/register.do" method="post" name="frm">
+		<form action="/board/update.do" method="post" name="frm">
+			<input type="hidden" name="num" value="${board.num }">
 			<table>
 				<tr>
 					<th>작 성 자</th>

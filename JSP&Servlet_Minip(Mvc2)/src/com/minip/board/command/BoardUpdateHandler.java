@@ -56,6 +56,8 @@ public class BoardUpdateHandler implements CommandHandler {
 		BoardDAO bDao = BoardDAO.getInstance();
 		bDao.updateBoard(bVo);
 		
+		response.sendRedirect("/board/list.do");
+		
 		return null;
 		
 	}
